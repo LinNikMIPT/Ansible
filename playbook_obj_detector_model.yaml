@@ -1,0 +1,15 @@
+---
+- name: update object detector model and restart
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: /home/gsys/.ansible/gtp-object-detector/bin/model/
+        dest: /opt/glosav/gtp-object-detector/bin/model/
+        
+    - name: restart service
+      ansible.builtin.command: systemctl restart gtp-object-detector.service

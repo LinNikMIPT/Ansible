@@ -1,0 +1,20 @@
+---
+- name: copy and run http service
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+  
+    - name: copy service
+      synchronize:
+        dest: /lib/systemd/system/
+        src: services/gtp-usb3-glosav-capturer.service
+
+    - name: enable service
+      ansible.builtin.command:
+         cmd: systemctl enable gtp-usb3-glosav-capturer.service
+
+    - name: start service
+      ansible.builtin.command:
+         cmd: systemctl start gtp-usb3-glosav-capturer.service

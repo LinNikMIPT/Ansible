@@ -1,0 +1,15 @@
+---
+- name: copy and run http service
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+  
+    - name: copy service
+      synchronize:
+        dest: /opt/glosav/gtp-http/bin/
+        src:  gtp-http/bin/app_firefly.py
+
+    - name: restart service
+      ansible.builtin.command: systemctl restart gtp-http.service

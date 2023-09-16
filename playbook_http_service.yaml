@@ -1,0 +1,24 @@
+---
+- name: copy and run http service
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+  
+    - name: install flask
+      ansible.builtin.command:
+        cmd: pip install flask opencv-python psutil
+
+    - name: copy service
+      synchronize:
+        dest: /lib/systemd/system/
+        src: services/gtp-http.service
+
+    - name: enable service
+      ansible.builtin.command:
+         cmd: systemctl enable gtp-http.service
+
+    - name: start service
+      ansible.builtin.command:
+         cmd: systemctl start gtp-http.service

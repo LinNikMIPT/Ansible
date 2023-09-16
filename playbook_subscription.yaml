@@ -1,0 +1,23 @@
+---
+- name: subscription
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-subscription
+        dest: /opt/glosav/
+
+    - name: copy service
+      synchronize:
+        src: services/gtp-subscription.service
+        dest: /lib/systemd/system/
+
+    - name: enable service
+      ansible.builtin.command: systemctl enable gtp-subscription.service
+
+    - name: restart service
+      ansible.builtin.command: systemctl restart gtp-subscription.service

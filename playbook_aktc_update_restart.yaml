@@ -1,0 +1,16 @@
+---
+- name: aktc proxy update bin and restart
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-rutoll-aktc-proxy/bin/gtp-rutoll-aktc-proxy
+        dest: /opt/glosav/gtp-rutoll-aktc-proxy/bin
+
+    - name: restart service
+      ansible.builtin.command: systemctl restart gtp-rutoll-aktc-proxy.service
+

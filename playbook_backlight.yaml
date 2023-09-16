@@ -1,0 +1,33 @@
+---
+- name: backlight upd
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy bin
+      synchronize:
+        dest: /opt/glosav/gtp-gpio-backlight-controller/bin
+        src: gtp-gpio-backlight-controller/bin/gtp-gpio-backlight-controller
+  
+    - name: copy service
+      synchronize:
+        dest: /lib/systemd/system/
+        src: services/gtp-gpio-backlight-controller.service
+
+    - name: enable service
+      ansible.builtin.command:
+         cmd: systemctl enable gtp-gpio-backlight-controller.service
+
+    - name: daemon reload
+      ansible.builtin.command:
+         cmd: systemctl daemon-reload
+
+    - name: restart service
+      ansible.builtin.command:
+         cmd: systemctl restart gtp-gpio-backlight-controller.service
+
+    - name: own directory
+      ansible.builtin.command:
+         cmd: chown -R 1000:1000 /opt/glosav/gtp-gpio-backlight-controller/

@@ -1,0 +1,13 @@
+---
+- name: copy htpp
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-http
+        dest: /opt/glosav
+

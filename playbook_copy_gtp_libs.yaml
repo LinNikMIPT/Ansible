@@ -1,0 +1,12 @@
+---
+- name: copy gtp libs
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy gtp-libs
+      synchronize:
+        src: gtp-libs
+        dest: /opt/glosav/

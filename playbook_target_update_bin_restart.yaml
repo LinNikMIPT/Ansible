@@ -1,0 +1,16 @@
+---
+- name: update bin for detector-target and restart
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-rutoll-detector-target/bin/gtp-rutoll-detector-target
+        dest: /opt/glosav/gtp-rutoll-detector-target/bin
+
+    - name: restart service
+      ansible.builtin.command:
+         cmd: systemctl restart gtp-rutoll-detector-target.service

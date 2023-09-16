@@ -1,0 +1,13 @@
+---
+- name: copy usb3 capturer
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-usb3-capturer
+        dest: /opt/glosav
+

@@ -1,0 +1,12 @@
+---
+- name: copy obj detector
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy module
+      synchronize:
+        src: firefly_dtb/
+        dest: /boot

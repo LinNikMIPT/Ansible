@@ -1,0 +1,15 @@
+---
+- name: copy usb3-rules
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      copy:
+        src: 88-cyusb.rules
+        dest: /etc/udev/rules.d
+
+    - name: reload rules
+      ansible.builtin.command: udevadm control --reload-rules

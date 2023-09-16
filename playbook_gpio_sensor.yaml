@@ -1,0 +1,13 @@
+---
+- name: copy gpio-sensors
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-gpio-sensors-capturer
+        dest: /opt/glosav
+

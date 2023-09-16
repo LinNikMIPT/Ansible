@@ -1,0 +1,15 @@
+---
+- name: ntp synchronize
+  become: true
+  hosts: 26_left
+  remote_user: firefly
+
+  tasks:
+    - name: conf update
+      synchronize:
+        src: /home/gsys/.ansible/ntp/timesyncd.conf
+        dest: /etc/systemd/
+
+    - name: time synchronize
+      ansible.builtin.command:
+         cmd: timedatectl set-ntp true

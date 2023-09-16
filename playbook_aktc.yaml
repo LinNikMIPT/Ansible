@@ -1,0 +1,21 @@
+---
+- name: aktc proxy
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-rutoll-aktc-proxy
+        dest: /opt/glosav/
+
+    - name: copy service
+      synchronize:
+        src: services/gtp-rutoll-aktc-proxy.service
+        dest: /lib/systemd/system/
+
+    - name: enable service
+      ansible.builtin.command: systemctl enable gtp-rutoll-aktc-proxy.service
+

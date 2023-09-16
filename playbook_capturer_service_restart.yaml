@@ -1,0 +1,11 @@
+---
+- name: copy and run http service
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+  
+    - name: restart service
+      ansible.builtin.command:
+         cmd: systemctl restart gtp-usb3-glosav-capturer.service

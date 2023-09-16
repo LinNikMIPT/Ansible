@@ -1,0 +1,12 @@
+---
+- name: copy and run http service
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+  
+    - name: copy config
+      synchronize:
+        dest: /opt/glosav/gtp-usb3-capturer/configurations/input/
+        src: gtp-usb3-capturer/configurations/input/configurations-imx273-1-1.json

@@ -1,0 +1,43 @@
+---
+- name: copy obj detector
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy module
+      synchronize:
+        src: gtp-object-detector
+        dest: /opt/glosav
+
+    - name: copy module service
+      synchronize:
+        src: services/gtp-object-detector.service
+        dest: /lib/systemd/system/
+
+    - name: copy requirements
+      synchronize:
+        src: requirements_obj/
+        dest: /opt/glosav/gtp-object-detector
+
+    - name: install cmake
+      apt:
+        name: cmake
+        state: present
+
+    - name: install obj requirements
+      ansible.builtin.command: pip install -r /opt/glosav/gtp-object-detector/requirements.txt
+    
+    - name: install rknn requirements
+      ansible.builtin.command: pip3 install -r /opt/glosav/gtp-object-detector/requirements_cp38-1.5.0.txt
+
+    - name: install rknn lib
+      ansible.builtin.command: pip3 install /opt/glosav/gtp-object-detector/rknn_toolkit_lite2-1.5.0-cp38-cp38-linux_aarch64.whl
+      
+    - name: enable obj service
+      ansible.builtin.command: systemctl enable gtp-object-detector.service
+
+    - name: enable obj service
+      ansible.builtin.command: systemctl restart gtp-object-detector.service
+

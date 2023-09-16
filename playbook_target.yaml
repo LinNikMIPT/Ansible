@@ -1,0 +1,13 @@
+---
+- name: copy detector-target
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: gtp-rutoll-detector-target/bin/gtp-rutoll-detector-target
+        dest: /opt/glosav/gtp-rutoll-detector-target/bin
+

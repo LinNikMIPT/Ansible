@@ -1,0 +1,29 @@
+---
+- name: copy install apt requirements
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: install opencv4.2
+      apt:
+        name: libopencv-highgui4.2
+        state: present
+    
+    - name: install pip
+      apt:
+        name: pip
+        state: present
+
+    - name: install flask
+      ansible.builtin.pip:
+        name: flask   
+
+    - name: install opencv-python
+      ansible.builtin.pip:
+        name: opencv-python
+
+    - name: install psutil
+      ansible.builtin.pip:
+        name: psutil

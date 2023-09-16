@@ -1,0 +1,11 @@
+---
+- name: restart detector-target service
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+  
+    - name: restart service
+      ansible.builtin.command:
+         cmd: systemctl restart gtp-rutoll-detector-target.service

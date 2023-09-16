@@ -1,0 +1,16 @@
+---
+- name: copy detector-target
+  become: true
+  hosts: all
+  remote_user: firefly
+  
+  tasks:
+
+    - name: copy
+      synchronize:
+        src: services/gtp-rutoll-detector-target.service
+        dest: /lib/systemd/system/
+
+    - name: enable service
+      ansible.builtin.command: systemctl enable gtp-rutoll-detector-target.service
+
